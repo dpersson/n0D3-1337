@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+body {
+  background-color: #2F2C2B;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+ 
+h1 {
+  color: #FFF;
+  text-transform: uppercase;
+  font-family: 'TitilliumText14L800wt', sans-serif;
+  margin-left: 58px;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-family: 'TitilliumText14L800wt', sans-serif;
+  margin-left: 58px;
+}
+
+.error {
+  color: red
+}
+
+.success {
+  color: green;
+}
+
+#login div.logo {
+  background: url(/images/leet.png) top left no-repeat;
+  width: 1080px;
+  height: 319px;
+  margin: auto;
+  padding-right: 50px;
+}
+
+#login h1 {
+  margin: 0;
+}
+
+#login form {
+  margin: auto;
+}
+
+#login form label,
+#login form input {
+  display: block;
+  width: 150px;
+  margin: auto;
+}
+
+#login form label {
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  margin-bottom: 2px;
+}
+
+#login form div {
+  margin-top: 10px;
+}
+
+#login form #submit {
+  margin-top: 15px;
+}
+
+#login {
+  margin: auto;
+  text-align: center;
+}
+
+/* Fonts */
+
+@font-face {
+  font-family: 'TitilliumText14L800wt';
+  src: url('/fonts/TitilliumText800wt.eot');
+  src: local('TitilliumText14L'), local('TitilliumText14L-800wt'), url('/fonts/TitilliumText800wt.woff') format('woff'), url('/fonts/TitilliumText800wt.ttf') format('truetype'), url('/fonts/TitilliumText800wt.svg#TitilliumText14L-800wt') format('svg');
+}

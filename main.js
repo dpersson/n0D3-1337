@@ -2,18 +2,24 @@ require.paths.unshift(__dirname + '/lib');
 require.paths.unshift(__dirname);
 require.paths.unshift(__dirname + '/deps/express/lib')
 
-var sys   = require('sys');
-var fs    = require('fs');
-var crypto= require('crypto');
-var mongo = require('deps/node-mongodb-native/lib/mongodb');
-
+var sys     = require('sys');
+var fs      = require('fs');
+var crypto  = require('crypto');
+var mongo   = require('deps/node-mongodb-native/lib/mongodb');
 var express = require('deps/express');
-var app = express.createServer(
-    express.logger(),
-    express.cookieDecoder(),
-    express.staticProvider(),
-    express.session(),
-    express.bodyDecoder);
+
+var app     = express.createServer();
+var pub     = __dirname + '/public';
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.use(express.bodyDecoder());
+app.use(express.cookieDecoder());
+app.use(express.session());
+app.use(express.logger());
+app.use(express.compiler({ src: pub, enable: ['sass'] }));
+app.use(express.staticProvider(pub));
 
 var db = new mongo.Db('1337', new mongo.Server('localhost', 27017, {}), {});
 
@@ -34,12 +40,12 @@ var users = {
   dpersson: {
     name: 'dpersson',
     salt: 'randomly-generated-salt',
-    pass: md5('foobar' + 'randomly-generated-salt');
+    pass: md5('foobar' + 'randomly-generated-salt')
   }
 };
 
 function md5(str) {
-  return crypto.createHash('md5').update(str).digest('hex';)
+  return crypto.createHash('md5').update(str).digest('hex');
 }
 
 function authenticate(name, pass, fn){
@@ -56,8 +62,7 @@ db.open(function(p_db) {
   app.configure(function(){
     app.set('root', __dirname);
     app.set('db', db);
-    app.set('views', __dirname + '/views');
-
+    
     try {
       var configJSON = fs.readFileSync(__dirname + '/config/app.json');
     } catch(e) {
@@ -67,10 +72,14 @@ db.open(function(p_db) {
     sys.log('Started server with config: ');
     sys.log(configJSON);
     var config = JSON.parse(configJSON.toString());
+
+    for(var i in config) {
+      app.set(i, config[i]);
+    }
   });
 
   app.get('/', function(req, res){
-    res.redirect('/login');
+    res.redirect('login');
   });
 
   app.get('/logout', function(req, res) {
@@ -86,11 +95,13 @@ db.open(function(p_db) {
       req.session.success = 'Authenticated as ' + req.session.user.name
       + ' click to <a href="/logout">logout</a>.';
     }
-    res.render('login');
+    res.render('login',{
+      locals: {title: 'test'}
+    });
   });
 
   app.post('/login', function(req, res) {
-    authenticate(req.body.username, req.body.password, function(err, user){
+    authenticate(req.body.username, req.body.password, function(err, user) {
       if (user) {
         // Regenerate session when signing in
         // to prevent fixation 
@@ -102,12 +113,11 @@ db.open(function(p_db) {
         });
       } else {
         req.session.error = 'Authentication failed, please check your '
-        + ' username and password.'
-        + ' (use "tj" and "foobar")';
+        + ' username and password.';
       }
       res.redirect('back');
     });
   });
- 
+
   app.listen(3000);
 });

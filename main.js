@@ -7,6 +7,7 @@ var fs      = require('fs');
 var crypto  = require('crypto');
 var mongo   = require('deps/node-mongodb-native/lib/mongodb');
 var express = require('deps/express');
+var time    = require('lib/TimeSocket').TimeSocket;
 
 var app     = express.createServer();
 var pub     = __dirname + '/public';
@@ -77,6 +78,9 @@ db.open(function(p_db) {
       app.set(i, config[i]);
     }
   });
+  
+  var timeSocket = new TimeSocket();
+  timeSocket.init();
 
   app.get('/', function(req, res){
     res.redirect('login');

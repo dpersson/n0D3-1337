@@ -82,6 +82,12 @@ db.open(function(p_db) {
     res.redirect('login');
   });
 
+  app.get('/main', function(req, res){
+    res.render('main', {
+      locals: {title: 'n0D3-1337'}
+    });
+  });
+
   app.get('/logout', function(req, res) {
     // destroy the user's session to log them out
     // will be re-created next request
@@ -95,8 +101,8 @@ db.open(function(p_db) {
       req.session.success = 'Authenticated as ' + req.session.user.name
       + ' click to <a href="/logout">logout</a>.';
     }
-    res.render('login',{
-      locals: {title: 'test'}
+    res.render('login', {
+      locals: {title: 'n0D3-1337'}
     });
   });
 

@@ -7,7 +7,7 @@ var fs      = require('fs');
 var crypto  = require('crypto');
 var mongo   = require('deps/node-mongodb-native/lib/mongodb');
 var express = require('deps/express');
-var time    = require('lib/TimeSocket').TimeSocket;
+var TimeSocket = require('lib/TimeSocket').TimeSocket;
 
 var app     = express.createServer();
 var pub     = __dirname + '/public';

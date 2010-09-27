@@ -1,14 +1,13 @@
-document.getElementById("send").addEventListener("click", function(){
+$('#send').click(function(){
   if(conn){
     conn.send("Test Message");
   }
-  return false;
-}, true);
+});
 
 var conn;
 setTimeout(function(){
   var connect = function(){
-    conn = new WebSocket("ws://localhost:8000/test");
+    conn = new WebSocket("ws://localhost:8080/");
   };
 
   if(window["WebSocket"]){
@@ -19,12 +18,9 @@ setTimeout(function(){
     console.log("Not Supported");
   }
 
-  var output_log = document.getElementById("log");
   conn.onmessage = function(evt){
     console.log(evt.data);
-    var msg = document.createElement("p");
-    msg.innerHTML = evt.data;
-    output_log.appendChild(msg);
+    $('#log').html(evt.data);
   };
 
   conn.onclose = function(){
@@ -49,7 +45,7 @@ setTimeout(function(){
 function rapidFire(){
   var i = 0, o = 0;
   var interval = setInterval(function(){
-    var r_conn = new WebSocket("ws://localhost:8000/");
+    var r_conn = new WebSocket("ws://localhost:8080/");
     console.log(++i, o);
     r_conn.onopen = function(){
       ++o;

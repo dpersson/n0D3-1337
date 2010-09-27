@@ -10,12 +10,16 @@ h1 {
   text-transform: uppercase;
   font-family: 'TitilliumText14L800wt', sans-serif;
   margin-left: 58px;
+  margin: 0;
 }
 
 h2 {
+  color: #FFF;
   text-transform: uppercase;
   font-family: 'TitilliumText14L800wt', sans-serif;
-  margin-left: 58px;
+  padding-top: 50px;
+  margin: 0;
+  font-size: 84px;
 }
 
 .error {
@@ -26,16 +30,12 @@ h2 {
   color: green;
 }
 
-#login div.logo {
+div.logo {
   background: url(/images/leet.png) top left no-repeat;
   width: 1080px;
   height: 319px;
   margin: auto;
   padding-right: 50px;
-}
-
-#login h1 {
-  margin: 0;
 }
 
 #login form {
@@ -65,6 +65,11 @@ h2 {
 }
 
 #login {
+  margin: auto;
+  text-align: center;
+}
+
+#main {
   margin: auto;
   text-align: center;
 }

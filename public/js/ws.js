@@ -1,7 +1,7 @@
 var conn;
 setTimeout(function(){
   var connect = function(){
-    conn = new WebSocket("ws://localhost:8080/");
+    conn = new WebSocket("ws://192.168.0.11:8080/");
   };
 
   if(window["WebSocket"]){

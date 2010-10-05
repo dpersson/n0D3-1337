@@ -64,6 +64,12 @@ div.logo {
   margin-top: 15px;
 }
 
+#login div.footer {
+  color: white;
+  font-size: 0.7em;
+  margin-top: 5px;
+}
+
 #login {
   margin: auto;
   text-align: center;
@@ -75,7 +81,6 @@ div.logo {
 }
 
 /* Fonts */
-
 @font-face {
   font-family: 'TitilliumText14L800wt';
   src: url('/fonts/TitilliumText800wt.eot');

@@ -9,8 +9,8 @@
 	-moz-border-radius: 7px;
 	border-radius: 10px;
 	-moz-box-shadow: 0px 1px 30px #6d6d6d;
-  	-webkit-box-shadow: 0px 0px 10px #6d6d6d;
-  	box-shadow: 0px 0px 10px #6d6d6d;
+  -webkit-box-shadow: 0px 0px 10px #6d6d6d;
+  box-shadow: 0px 0px 10px #6d6d6d;
 	display:none;
 }
 
@@ -23,6 +23,7 @@
 	width: 30px;
 	height: 30px;
 	float: right;
+  cursor: pointer;
 }
 			
 .modal-content {
@@ -40,4 +41,3 @@
 	display:none;
 	text-align:left;
 }
-

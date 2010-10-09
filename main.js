@@ -8,6 +8,7 @@ var crypto      = require('crypto');
 var mongo       = require('deps/node-mongodb-native/lib/mongodb');
 var express     = require('deps/express');
 var TimeSocket  = require('lib/TimeSocket').TimeSocket;
+var Users       = require('lib/Users').Users;
 
 var app     = express.createServer();
 var pub     = __dirname + '/public';
@@ -23,6 +24,7 @@ app.use(express.compiler({ src: pub, enable: ['sass'] }));
 app.use(express.staticProvider(pub));
 
 var db = new mongo.Db('1337', new mongo.Server('localhost', 27017, {}), {});
+var users = new Users();
 
 app.dynamicHelpers({
   message: function(req){
@@ -37,13 +39,14 @@ app.dynamicHelpers({
   }
 });
 
+/*
 var users = {
   dpersson: {
     name: 'dpersson',
     salt: 'randomly-generated-salt',
     pass: md5('foobar' + 'randomly-generated-salt')
   }
-};
+};*/
 
 function md5(str) {
   return crypto.createHash('md5').update(str).digest('hex');
@@ -107,6 +110,18 @@ db.open(function(p_db) {
     }
     res.render('login', {
       locals: {title: 'n0D3-1337'}
+    });
+  });
+
+  app.post('/register', function(req, res) {
+    users.save(db, {
+       dpersson: {
+         name: 'dpersson',
+         salt: 'randomly-generated-salt',
+         pass: md5('foobar' + 'randomly-generated-salt')
+        }
+      }, function(error, docs){
+        res.redirect('/');
     });
   });
 

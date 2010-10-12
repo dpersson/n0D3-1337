@@ -39,27 +39,33 @@ app.dynamicHelpers({
   }
 });
 
-/*
-var users = {
-  dpersson: {
-    name: 'dpersson',
-    salt: 'randomly-generated-salt',
-    pass: md5('foobar' + 'randomly-generated-salt')
-  }
-};*/
-
 function md5(str) {
   return crypto.createHash('md5').update(str).digest('hex');
 }
 
 function authenticate(name, pass, fn){
-  var user = users[name];
+  users.findAll(db, function(error, user_collection){
+    var user;
+    sys.log('USER-------------------------------------: ' + JSON.stringify(user_collection));
+    sys.log('Name: ' + name);
+    sys.log('Pass: ' + pass);
+    for(var user in user_collection) {
+      if(typeof (user_collection[user][name]) !== 'undefined') {
+        sys.log(JSON.stringify((user_collection[user][name])));
+        user = user_collection[user][name];
+      }
+    }
 
-  if(!user) return fn(new Error('Cannot find user'));
+    sys.log('Name2: ' + user.name);
+    sys.log('Salt2: ' + user.salt);
+    sys.log('Pass2: ' + user.pass);
 
-  if(user.pass == md5(pass + user.salt)) return fn(null, user);
+    if(!user) return fn(new Error('Cannot find user'));
+  
+    if(user.pass == md5(pass + user.salt)) return fn(null, user);
 
-  fn(new Error('Invalid password'));
+    fn(new Error('Invalid password'));
+  });
 }
 
 db.open(function(p_db) {
@@ -114,13 +120,10 @@ db.open(function(p_db) {
   });
 
   app.post('/register', function(req, res) {
-    users.save(db, {
-       dpersson: {
-         name: 'dpersson',
-         salt: 'randomly-generated-salt',
-         pass: md5('foobar' + 'randomly-generated-salt')
-        }
-      }, function(error, docs){
+    var user = new Object();
+    eval("user = [{" + req.body.username + ":{'name':'" + req.body.username + "','salt':'randomly-generated-salt', 'pass':'" + md5(req.body.password + 'randomly.generated-salt') + "'}}];");
+
+    users.save(db, user, function(error, docs){
         res.redirect('/');
     });
   });

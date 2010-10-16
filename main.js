@@ -46,19 +46,12 @@ function md5(str) {
 function authenticate(name, pass, fn){
   users.findAll(db, function(error, user_collection){
     var user;
-    sys.log('USER-------------------------------------: ' + JSON.stringify(user_collection));
-    sys.log('Name: ' + name);
-    sys.log('Pass: ' + pass);
     for(var user in user_collection) {
       if(typeof (user_collection[user][name]) !== 'undefined') {
         sys.log(JSON.stringify((user_collection[user][name])));
         user = user_collection[user][name];
       }
     }
-
-    sys.log('Name2: ' + user.name);
-    sys.log('Salt2: ' + user.salt);
-    sys.log('Pass2: ' + user.pass);
 
     if(!user) return fn(new Error('Cannot find user'));
   
@@ -120,11 +113,31 @@ db.open(function(p_db) {
   });
 
   app.post('/register', function(req, res) {
-    var user = new Object();
-    eval("user = [{" + req.body.username + ":{'name':'" + req.body.username + "','salt':'randomly-generated-salt', 'pass':'" + md5(req.body.password + 'randomly.generated-salt') + "'}}];");
+    users.findAll(db, function(error, user_collection){
+      var user = false;
+      for(var user in user_collection) {
+        if(typeof (user_collection[user][req.body.username]) !== 'undefined') {
+          sys.log('User already exist.');
+          user = true;
+        }
+      }
 
-    users.save(db, user, function(error, docs){
-        res.redirect('/');
+      if(user == false) {
+        var user = new Object();
+        eval("user = [{" + req.body.username + ":{'name':'" + req.body.username + "','salt':'randomly-generated-salt', 'pass':'" + md5(req.body.password + 'randomly-generated-salt') + "'}}];");
+
+        users.save(db, user, function(error, docs){
+          sys.log('Registration success');
+          req.session.success = 'Registration success';
+          res.redirect('/');
+        });
+      }
+      else {
+        sys.log('User already exists');
+        req.session.error = 'User already exists. Choose another name.';
+      }
+
+      res.redirect('back');
     });
   });
 
@@ -143,6 +156,7 @@ db.open(function(p_db) {
         req.session.error = 'Authentication failed, please check your '
         + ' username and password.';
       }
+
       res.redirect('back');
     });
   });

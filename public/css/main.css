@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 body {
-  background-color: #2F2C2B;
+  background-color: #e5ecf3;
   font-family: "Lucida Grande", Helvetica, sans-serif;
 }
  
@@ -32,47 +32,62 @@ h2 {
 
 div.logo {
   background: url(/images/leet.png) top left no-repeat;
-  width: 1080px;
-  height: 319px;
-  margin: auto;
-  padding-right: 50px;
+  width: 169px;
+  height: 50px;
+  float: left;
+  margin-left: 20px;
 }
 
-#login form {
-  margin: auto;
+#menu {
+  background-color: #1b5790;
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  top: 0px;
+  left: 0px;
 }
 
-#login form label,
-#login form input {
-  display: block;
-  width: 150px;
-  margin: auto;
-}
-
-#login form label {
-  color: #FFF;
-  text-transform: uppercase;
-  font-size: 0.7em;
-  margin-bottom: 2px;
-}
-
-#login form div {
-  margin-top: 10px;
-}
-
-#login form #submit {
-  margin-top: 15px;
-}
-
-#login div.footer {
-  color: white;
-  font-size: 0.7em;
+div.menu-items {
+  margin:0px auto;
   margin-top: 5px;
+  height:50px;
+  width: 800px;
+  background-color: #e5ecf3;
+  border-radius: 7px;
 }
 
-#login {
-  margin: auto;
-  text-align: center;
+div.menu-item {
+  width:140px;
+  height:50px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
+  float: left;
+  font-family: 'TitilliumText14L800wt', sans-serif;
+  cursor: pointer;
+}
+
+div.menu-item:hover {
+  width:140px;
+  height:35px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-right: 15px;
+  float: left;
+  font-family: 'TitilliumText14L800wt', sans-serif;
+  cursor: pointer;
+  background-color: #c0deed;
+}
+
+.input_text {
+  display: block;
+  width: 252px;
+  height: 31px;
+  font-size:14pt;
+  color: #62809d;
+  border-color:#80a1c1;
+  border-style:inset;
+  border-width:1px;
 }
 
 #main {

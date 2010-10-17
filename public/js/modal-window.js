@@ -1,18 +1,18 @@
 (function($){
 	$.fn.modalWindow = function(options){
 		var opts = $.extend({}, $.fn.modalWindow.defaults, options);
-	    	var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-		$('.modal-window').fadeIn();
+	  var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+		$('#' + o.container).fadeIn();
 		$('.dim').fadeIn();
-		$('.modal-window').draggable();
+		$('#' + o.container).draggable();
 
 		$('.modal-close').click(function(){
 			$(this).parent().fadeOut();
 			$('.dim').fadeOut();
 		});
 
-		$(".dim").css("height", $(document).height());
-		$('.modal-window').center();
+		$('.dim').css("height", $(document).height());
+		$('#' + o.container).center();
 	};
 	
 	$.fn.center = function(){
@@ -23,6 +23,6 @@
 	};
 
 	$.fn.modalWindow.defaults = {
-        	text: ''
+    container: ''
 	};
 })(jQuery);

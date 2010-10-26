@@ -7,14 +7,25 @@
   </div>
 </div>
 <h3><%- message %></h3>
+<h2 id="timer"></h2>
 <div class="modal-window" id="login-window">
   <div class="modal-close"></div>
   <div class="modal-content">
-    <form action="/login" method="post">
-      <input type="text" class="input_text" name="username" value="Username"/>
-      <input type="password" class="input_text" name="password" value="Password"/>
-      <input id="submit" type="submit" value="Login"/>
-    </form>
+    <div class="modal-content-left">
+      <div style="margin: 20px;">
+        <div style="font-size: 32px;">Login</div>
+        <br/>
+        <form action="/login" method="post">
+          <input type="text" class="input_text" name="username" value="Username"/>
+          <br/>
+          <input type="password" class="input_text" name="password" value="Password"/>
+          <br/>
+          <input id="submit" type="submit" value="Login"/>
+        </form>
+      </div>
+    </div>
+    <div class="modal-content-right">
+    </div>
   </div>
 </div>
 <div class="modal-window" id="register-window">
@@ -22,21 +33,20 @@
   <div class="modal-content">
     <div class="modal-content-left">
       <div style="margin: 20px;">
-      <div style="font-size: 32px;">Join the fun!</div>
-      <br/>
-      <form action="/register" method="post">
-        <input type="text" class="input_text" name="username" value="Username"/>
+        <div style="font-size: 32px;">Join the fun!</div>
         <br/>
-        <input type="password" class="input_text" name="password" value="Password"/>
-        <br/>
-        <input type="text" class="input_text" name="email" value="Email"/>
-        <br/>
-        <input id="register" type="submit" value="Create Account"/>
-      </form>
+        <form action="/register" method="post">
+          <input type="text" class="input_text" name="username" value="Username"/>
+          <br/>
+          <input type="password" class="input_text" name="password" value="Password"/>
+          <br/>
+          <input type="text" class="input_text" name="email" value="Email"/>
+          <br/>
+          <input id="register" type="submit" value="Create Account"/>
+        </form>
       </div>
     </div>
     <div class="modal-content-right">
-      
     </div>
   </div>
 </div>
